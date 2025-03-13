@@ -1,41 +1,65 @@
-document.addEventListener('DOMContentLoaded', function() {
+import { supabase } from "./BD/supabase.js";
+
+document.addEventListener('DOMContentLoaded', async function() {
     const listaSeleccionadas = document.getElementById('lista-seleccionadas');
     const fullscreenImage = document.getElementById('fullscreen-image');
     const fullscreenImg = fullscreenImage.querySelector('img');
 
-    // Obtener las canciones seleccionadas del localStorage
-    const selectedSongs = JSON.parse(localStorage.getItem('selectedSongs')) || [];
+    // Obtener la lista de canciones seleccionadas desde Supabase
+    const { data: listas, error } = await supabase
+        .from('t_listas_domingos')
+        .select('*');
 
-    // Obtener todas las canciones del localStorage
-    const songs = JSON.parse(localStorage.getItem('allSongs')) || [];
+    if (error) {
+        console.error('Error cargando listas:', error);
+        return;
+    }
 
+    // Obtener todas las canciones desde Supabase
+    const { data: canciones, error: errorCanciones } = await supabase
+        .from('t_canciones')
+        .select('*');
+
+    if (errorCanciones) {
+        console.error('Error cargando canciones:', errorCanciones);
+        return;
+    }
+
+    // // Obtener las canciones seleccionadas del localStorage
+    // const selectedSongs = JSON.parse(localStorage.getItem('selectedSongs')) || [];
+
+    // // Obtener todas las canciones del localStorage
+    // const songs = JSON.parse(localStorage.getItem('allSongs')) || [];
+
+    // ** VERIFICAR QUE ESTE BIEN USADO t_canciones
     // Mostrar las canciones seleccionadas
-    if (selectedSongs.length > 0) {
-        selectedSongs.forEach(songName => {
-            const songElement = document.createElement('div');
-            songElement.classList.add('song');
-            songElement.textContent = songName;
+    if (listas.length > 0) {
+        const ultimaLista = listas[listas.length - 1]; // Ultima lista guardada!
+        ultimaLista.canciones.forEach(cancionId => {
+            const cancion = canciones.find(c => c.id === cancionId);
+            if (cancion) {
+                const songElement = document.createElement('div');
+                songElement.classList.add('song');
+                songElement.textContent = cancion.nombre;
 
-            // Agrego evento para mostrar la imagen correspondiente
-            songElement.addEventListener('click', function() {
-                //Aca busca la imagen de la cancion 
-                const song = songs.find(s => s.name === songName);
-                if (song) {
-                    fullscreenImg.src = song.image;
+                // Agrego evento para mostrar la imagen correspondiente
+                songElement.addEventListener('click', function() {
+                    fullscreenImg.src = cancion.image;
                     fullscreenImage.style.display = 'flex';
-                }
-            });
-            listaSeleccionadas.appendChild(songElement);
-        });
+                });
+                listaSeleccionadas.appendChild(songElement);
+            }
+
+        });        
     } else {
-        listaSeleccionadas.innerHTML = '<li>No hay canciones seleccionadas.</li>';
+        listaSeleccionadas.innerHTML = '<p>No hay canciones seleccionadas.</p>';
     }
 
     // Ocultar la imagen al hacer click fuera de pantalla
     fullscreenImage.addEventListener('click', function(event) {
         if (event.target === fullscreenImage) {
             this.style.display = 'none';
-            fullscreenImg.classList.remove('zoomed'); // Quita el zoom al cerrar
+            fullscreenImg.classList.remove('zoomed');
         }
     });
 

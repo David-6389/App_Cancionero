@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
 
+    console.log('Listas cargadas:', listas); // Depuración
+
     // Obtener todas las canciones desde Supabase
     const { data: canciones, error: errorCanciones } = await supabase
         .from('t_canciones')
@@ -25,26 +27,30 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
 
-    // ** VERIFICAR QUE ESTE BIEN USADO t_canciones
+    console.log('Canciones cargadas:', canciones); // Depuración
+
     // Mostrar las canciones seleccionadas
     if (listas.length > 0) {
         const ultimaLista = listas[listas.length - 1]; // Ultima lista guardada!
-        ultimaLista.canciones.forEach(cancionId => {
-            const cancion = canciones.find(c => c.id === cancionId);
-            if (cancion) {
+        console.log('Última lista:', ultimaLista); // Depuración
+
+        ultimaLista.canciones.forEach(cancion => {
+            // const cancion = canciones.find(c => c.id === cancionId);
+            if (cancion && cancion.nombre) {
                 const songElement = document.createElement('div');
                 songElement.classList.add('song');
                 songElement.textContent = cancion.nombre;
 
                 // Agrego evento para mostrar la imagen correspondiente
                 songElement.addEventListener('click', function() {
-                    fullscreenImg.src = cancion.image;
+                    fullscreenImg.src = cancion.imagen;
                     fullscreenImage.style.display = 'flex';
                 });
                 listaSeleccionadas.appendChild(songElement);
+            } else {
+                console.error('Canción no valida:', cancion); // Depuración
             }
-
-        });        
+        });
     } else {
         listaSeleccionadas.innerHTML = '<p>No hay canciones seleccionadas.</p>';
     }

@@ -8,17 +8,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     const fullscreenImg = fullscreenImage.querySelector('img');
 
     // cargar las canciones desde supabase
-
     const {data: canciones, error} = await supabase
         .from('t_canciones')
         .select('*');
         
-    console.log('Canciones cargadas:', canciones);
-
+    
     if (error) {
         console.error('Error cargando canciones:', error);
         return;
     }
+    
+    console.log('Canciones cargadas:', canciones);
 
     // Crear y agregar las canciones al DOM
     if (canciones.length > 0) {
@@ -60,24 +60,58 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // Guardar las canciones seleccionadas
-    guardarBtn.addEventListener('click', async function() {
-        const selectedSongs = [];
-        document.querySelectorAll('.song input[type="checkbox"]:checked').forEach(checkbox => {
-            selectedSongs.push(checkbox.value); // Agrega el nombre de la canción seleccionada
+        guardarBtn.addEventListener('click', async function() {
+            const selectedSongs = [];
+            const checkboxes = document.querySelectorAll('.song input[type="checkbox"]:checked');
+            console.log('Checkboxes seleccionados:', checkboxes); // Depuración
+
+            checkboxes.forEach(checkbox => {
+                console.log('Valor del checkbox:', checkbox.value); // Depuración
+
+                // Busca la canción correspondiente en el array `canciones`
+                const cancionSeleccionada = canciones.find(cancion => cancion.id === parseInt(checkbox.value));
+                if (cancionSeleccionada) {
+                    selectedSongs.push({
+                        id: cancionSeleccionada.id,
+                        nombre: cancionSeleccionada.nombre,
+                        imagen: cancionSeleccionada.imagen,
+                        tono: cancionSeleccionada.tono,
+                        Rango_voz: cancionSeleccionada.Rango_voz
+                    });
+                } else {
+                    console.error('Canción no encontrada para el ID:', checkbox.value); // Depuración
+                }
+            });
+
+            console.log('Canciones seleccionadas:', selectedSongs); // Depuración
+
+            // Validar que se hayan seleccionado canciones
+            if (selectedSongs.length === 0) {
+                alert('No seleccionaste ninguna canción.');
+                return;
+            }
+
+            // Pedir al usuario el nombre de la lista y quién la dirige
+            const nombreLista = prompt('Nombre de la lista:');
+            const dirige = prompt('¿Quién dirige?');
+
+            
+            // Guardar en Supabase
+            const { data, error } = await supabase
+                .from('t_listas_domingos')
+                .insert([{ 
+                    canciones: selectedSongs,
+                    nombre_lista: nombreLista,
+                    dirige: dirige
+                }]);
+
+            if (error) {
+                console.error('Error guardando la lista:', error);
+                alert('Error al guardar la lista.');
+            } else {
+                alert('Lista guardada correctamente.');
+            }
         });
-
-        // Guardar en Supabase
-        const { data, error } = await supabase
-            .from('t_listas_domingos')
-            .insert([{ canciones: selectedSongs }]);
-
-        if (error) {
-            console.error('Error guardando la lista:', error);
-            alert('Error al guardar la lista.');
-        } else {
-            alert('Lista guardada correctamente.');
-        }
-    });
 
     // Ocultar la imagen al hacer clic fuera de ella
     fullscreenImage.addEventListener('click', function(event) {

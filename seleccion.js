@@ -25,12 +25,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
 
-    // // Obtener las canciones seleccionadas del localStorage
-    // const selectedSongs = JSON.parse(localStorage.getItem('selectedSongs')) || [];
-
-    // // Obtener todas las canciones del localStorage
-    // const songs = JSON.parse(localStorage.getItem('allSongs')) || [];
-
     // ** VERIFICAR QUE ESTE BIEN USADO t_canciones
     // Mostrar las canciones seleccionadas
     if (listas.length > 0) {

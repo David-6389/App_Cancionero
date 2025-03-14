@@ -4,11 +4,15 @@ async function agregarCanciones() {
     const canciones = [
         {
             nombre: "Cambiare mi tristeza",
-            imagen: "https://dqnrueyhwjbaxkgfcomq.supabase.co/storage/v1/object/public/canciones-tonosyacordes//Cambiare_mi_tristeza.jpg" // Reemplaza con la URL de la imagen
+            imagen: "https://dqnrueyhwjbaxkgfcomq.supabase.co/storage/v1/object/public/canciones-tonosyacordes//Cambiare_mi_tristeza.jpg", // Reemplaza con la URL de la imagen
+            tono: "A",
+            Rango_voz: "Varon"
         },
         {
             nombre: "Ven, es hora de Adorarte",
-            imagen: "https://dqnrueyhwjbaxkgfcomq.supabase.co/storage/v1/object/public/canciones-tonosyacordes//Ven_es_hora_de_adorarle.jpg" // Reemplaza con la URL de la imagen
+            imagen: "https://dqnrueyhwjbaxkgfcomq.supabase.co/storage/v1/object/public/canciones-tonosyacordes//Ven_es_hora_de_adorarle.jpg",
+            tono: "G",
+            Rango_voz: "Varon"
         }
     ];
 

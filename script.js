@@ -44,6 +44,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
             songElement.appendChild(songName);
 
+            const songDetails = document.createElement('div');
+            songDetails.classList.add('song-details');
+            songDetails.innerHTML = `
+            <p><strong>Tono:</strong> ${cancion.tono}</p>
+            <p><strong>Rango de voz:</strong> ${cancion.Rango_voz}</p>
+        `;
+        songElement.appendChild(songDetails);
+
             // Agregar la canción al contenedor
             songList.appendChild(songElement);
         });
@@ -61,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Guardar en Supabase
         const { data, error } = await supabase
             .from('t_listas_domingos')
-            .insert([{ t_canciones: selectedSongs }]);
+            .insert([{ canciones: selectedSongs }]);
 
         if (error) {
             console.error('Error guardando la lista:', error);

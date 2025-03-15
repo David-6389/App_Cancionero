@@ -1,3 +1,5 @@
+
+console.log('Ejecutando agregarCanciones.js'); // Depuración
 import { supabase } from './BD/supabase.js';
 
 async function agregarCanciones() {
@@ -11,10 +13,12 @@ async function agregarCanciones() {
         {
             nombre: "Ven, es hora de Adorarte",
             imagen: "https://dqnrueyhwjbaxkgfcomq.supabase.co/storage/v1/object/public/canciones-tonosyacordes//Ven_es_hora_de_adorarle.jpg",
-            tono: "G",
+            tono: "E",
             Rango_voz: "Varon"
         }
     ];
+
+    console.log('Datos a insertar:', canciones); // Depuración
 
     // Insertar las canciones en Supabase
     const { data, error } = await supabase

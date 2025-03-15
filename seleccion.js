@@ -4,11 +4,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     const listaSeleccionadas = document.getElementById('lista-seleccionadas');
     const fullscreenImage = document.getElementById('fullscreen-image');
     const fullscreenImg = fullscreenImage.querySelector('img');
+    const tituloLista = document.getElementById('titulo-list');
 
     // Obtener la lista de canciones seleccionadas desde Supabase
     const { data: listas, error } = await supabase
         .from('t_listas_domingos')
-        .select('*');
+        .select('*')
+        .order('created_at');
 
     if (error) {
         console.error('Error cargando listas:', error);
@@ -33,7 +35,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (listas.length > 0) {
         const ultimaLista = listas[listas.length - 1]; // Ultima lista guardada!
         console.log('Última lista:', ultimaLista); // Depuración
-
+        
+        // Dirige
+        if (tituloLista) {
+            tituloLista.textContent = `Dirige: ${ultimaLista.dirige} 🎤`;
+        }
+        
+        // Mostrar las canciones de la lista
         ultimaLista.canciones.forEach(cancion => {
             // const cancion = canciones.find(c => c.id === cancionId);
             if (cancion && cancion.nombre) {

@@ -1,18 +1,18 @@
 import { supabase } from "./BD/supabase.js";
 
-// script.js
 document.addEventListener('DOMContentLoaded', async function() {
+
     const songList = document.querySelector('.song-list');
     const guardarBtn = document.getElementById('guardar');
     const fullscreenImage = document.getElementById('fullscreen-image');
     const fullscreenImg = fullscreenImage.querySelector('img');
+    const buscador = document.getElementById('buscador');
 
     // cargar las canciones desde supabase
     const {data: canciones, error} = await supabase
         .from('t_canciones')
         .select('*');
         
-    
     if (error) {
         console.error('Error cargando canciones:', error);
         return;
@@ -20,44 +20,63 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     console.log('Canciones cargadas:', canciones);
 
-    // Crear y agregar las canciones al DOM
-    if (canciones.length > 0) {
-        canciones.forEach(cancion => {
-            const songElement = document.createElement('div');
-            songElement.classList.add('song');
 
-            // Checkbox para seleccionar la canción
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.value = cancion.id;
-            checkbox.addEventListener('click', function(event) {
-                event.stopPropagation(); // Evita que el evento se propague al contenedor
+
+    //! Función para mostrar las canciones filtradas
+
+    function mostrarCanciones(filtro = '') {
+        songList.innerHTML = ''; // Limpiar la lista actual
+
+        const cancionesFiltradas = canciones.filter(cancion =>
+            cancion.nombre.toLowerCase().includes(filtro.toLowerCase())
+        );
+
+        // Crear y agregar las canciones al DOM
+        if (cancionesFiltradas.length > 0) {
+            cancionesFiltradas.forEach(cancion => {
+                const songElement = document.createElement('div');
+                songElement.classList.add('song');
+
+                // Checkbox para seleccionar la canción
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = cancion.id;
+                checkbox.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Evita que el evento se propague al contenedor
+                });
+                songElement.appendChild(checkbox);
+
+                // Nombre de la canción
+                const songName = document.createElement('span');
+                songName.textContent = cancion.nombre;
+                songName.addEventListener('click', function() {
+                    fullscreenImg.src = cancion.imagen;
+                    fullscreenImage.style.display = 'flex';
+                });
+                songElement.appendChild(songName);
+
+                const songDetails = document.createElement('div');
+                songDetails.classList.add('song-details');
+                songDetails.innerHTML = `
+                <p><strong>Tono:</strong> ${cancion.tono} (${cancion.Rango_voz})</p>`;
+            songElement.appendChild(songDetails);
+
+                // Agregar la canción al contenedor
+                songList.appendChild(songElement);
             });
-            songElement.appendChild(checkbox);
-
-            // Nombre de la canción
-            const songName = document.createElement('span');
-            songName.textContent = cancion.nombre;
-            songName.addEventListener('click', function() {
-                fullscreenImg.src = cancion.imagen;
-                fullscreenImage.style.display = 'flex';
-            });
-            songElement.appendChild(songName);
-
-            const songDetails = document.createElement('div');
-            songDetails.classList.add('song-details');
-            songDetails.innerHTML = `
-            <p><strong>Tono:</strong> ${cancion.tono}</p>
-            <p><strong>Rango de voz:</strong> ${cancion.Rango_voz}</p>
-        `;
-        songElement.appendChild(songDetails);
-
-            // Agregar la canción al contenedor
-            songList.appendChild(songElement);
-        });
-    } else {
-        songList.innerHTML = '<p>No hay canciones disponibles. </p>';
+        } else {
+            songList.innerHTML = '<p>No hay canciones disponibles. </p>';
+        }
     }
+
+    // Mostrar todas las canciones al cargar la página
+    mostrarCanciones();
+
+     // Escuchar el evento de entrada en el buscador
+    buscador.addEventListener('input', function(event) {
+       const filtro = event.target.value; // Obtener el texto ingresado
+       mostrarCanciones(filtro); // Filtrar y mostrar las canciones
+    });
 
     // Guardar las canciones seleccionadas
         guardarBtn.addEventListener('click', async function() {
@@ -94,7 +113,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             // Pedir al usuario el nombre de la lista y quién la dirige
             const nombreLista = prompt('Nombre de la lista:');
             const dirige = prompt('¿Quién dirige?');
-
             
             // Guardar en Supabase
             const { data, error } = await supabase

@@ -1,0 +1,260 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #949393;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+}
+
+.container-buscador{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+#buscador {
+    width: 350px;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+#buscador:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 25px #00aeff5e;
+}
+
+/* Estilos para el campo de fecha */
+#fecha-lista {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#fecha-lista:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.song-list {
+    max-width: 350px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fcfcfc;
+    box-shadow: 0 0 30px rgba(41, 1, 1, 0.63);
+}
+
+.song {
+    padding: 8px;
+    margin: 10px 0;
+    background-color: #5a85b3;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 4px 8px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out, background-color 1s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.song:hover {
+    transform: scale(1.02);
+    background-color: #246ab4;
+    box-shadow: 0 0 25px #f1d074;
+}
+
+.song-details {
+    /* margin-top: 1px; */
+    font-size: 0.7em;
+    color: #e7e7e7;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #5a85b3;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.song input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+#guardar {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#guardar:hover {
+    background-color: #0056b3;
+}
+
+#ver-seleccionadas {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+#ver-seleccionadas:hover {
+    text-decoration: underline;
+}
+
+.text-dirige {
+    font-size: 2em;
+    text-align: center;
+    animation: fadeIn 3s ease-in-out forwards; /* Animación de entrada con easing */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0; /* Comienza transparente */
+        transform: translateY(-20px); /* Movimiento inicial hacia arriba */
+    }
+    50% {
+        opacity: 0.5; /* Opacidad intermedia */
+        transform: translateY(0); /* Sin movimiento */
+    }
+    100% {
+        opacity: 1; /* Termina completamente visible */
+        transform: translateY(0); /* Sin movimiento */
+    }
+}
+
+.fullscreen-image {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    overflow: auto; /* Permite el scroll si el contenido es más grande que el contenedor */
+    z-index: 1000; /* Asegura que esté por encima de todo */
+}
+
+.fullscreen-image img {
+    max-width: 90%; /* Limita el ancho de la imagen al 90% del viewport */
+    max-height: 90vh; /* Limita la altura de la imagen al 90% del viewport */
+    border-radius: 10px;
+    cursor: zoom-in; /* Cambia el cursor para indicar que se puede hacer zoom */
+    transition: transform 0.3s ease; /* Transición suave */
+}
+
+.fullscreen-image img.zoomed {
+    transform: scale(1.2); /* Aumenta el tamaño de la imagen al 120% */
+    cursor: zoom-out; /* Cambia el cursor para indicar que se puede reducir */
+    max-width: 90%; /* Mantén el ancho máximo */
+    max-height: 90vh; /* Mantén la altura máxima */
+    padding-top: 0; /* Elimina el padding-top */
+}
+
+#lista-seleccionadas {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos específicos para dispositivos móviles */
+@media (max-width: 768px) {
+    h1 {
+        text-align: center;
+        font-size: 23px;
+    }
+
+    #buscador {
+        width: 250px;
+    }
+
+    .fullscreen-image img {
+        max-width: 95%; /* Aumenta el ancho máximo en dispositivos móviles */
+        max-height: 95vh; /* Aumenta la altura máxima en dispositivos móviles */
+    }
+
+    .fullscreen-image img.zoomed {
+        transform: scale(1.1); /* Reduce el zoom en dispositivos móviles */
+    }
+}
+
+
+
+/* ---------  PARTE VIEJA  ---------- */
+/* .fullscreen-image {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    overflow: auto;  Permite el scroll si el contenido es más grande que el contenedor 
+}
+
+.fullscreen-image img {
+    max-width: 95%;
+    max-height: 95%;
+    border-radius: 10px;
+    transition: transform 0.3s ease;  Transición suave 
+    cursor: zoom-in;  Cambia el cursor para indicar que se puede hacer zoom 
+}
+
+.fullscreen-image img.zoomed {
+    padding-top: 21%;
+    border-radius: 10px;
+    transform: scale(1.2); Aumenta el tamaño de la imagen al 120% 
+    height: auto;  Mantiene la proporción 
+    cursor: zoom-out; Cambia el cursor para indicar que se puede reducir 
+    max-width: 1100px; Elimina la restricción de tamaño máximo 
+    max-height: 1100px;  Elimina la restricción de altura máxima 
+}
+
+#lista-seleccionadas {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+
+    h1 {
+
+        font-size: 23px;
+    }
+
+
+    .fullscreen-image img {
+        max-width: 95%;  Aumenta el ancho máximo en dispositivos móviles 
+        max-height: 95vh;  Aumenta la altura máxima en dispositivos móviles 
+    }
+
+    .fullscreen-image img.zoomed {
+        transform: scale(1.1);  Reduce el zoom en dispositivos móviles 
+    }
+} */

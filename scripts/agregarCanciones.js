@@ -1,6 +1,6 @@
 
 console.log('Ejecutando agregarCanciones.js'); // Depuración
-import { supabase } from './BD/supabase.js';
+import { supabase } from '../BD/supabase.js';
 
 async function agregarCanciones() {
     const canciones = [

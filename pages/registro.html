@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Músicos</title>
+    <link rel="stylesheet" href="../styles/registro.css"> <!-- Enlaza el archivo CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="../scripts/registro.js"></script> <!-- Enlaza el archivo JavaScript -->
+</head>
+<body>
+    <div class="container-registro">
+        <h1>Registro de Músicos</h1>
+        <form id="registroForm">
+            <div class="container-solo-form">
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <div class="igreso-nombre">
+                        <input type="text" id="nombre" required />
+                    </div>    
+                </div>
+                <div>    
+                    <label for="instrumentos">Elegi que instrumentos tocas: 🎶🎸🎹🥁🎤🎶</label>
+                    <label><input type="checkbox" name="instrumentos" value="Guitarra"> Guitarra </label>
+                    <label><input type="checkbox" name="instrumentos" value="Bajo"> Bajo </label>
+                    <label><input type="checkbox" name="instrumentos" value="Batería"> Batería </label>
+                    <label><input type="checkbox" name="instrumentos" value="Teclado"> Teclado </label>
+                    <label><input type="checkbox" name="instrumentos" value="Voz"> Voz </label>
+                </div>
+                <div>
+                    <div class="container-dirige">
+                        <label for="dirige">¿Dirige?</label>
+                        <input type="checkbox" id="dirige" />
+                    </div>
+                    <div class="button-reg">
+                        <button type="submit">Registrarse</button>
+                    </div>        
+                </div>
+            </div>    
+        </form>
+
+        <a href="./index.html">Volver a la lista de canciones</a>
+    </div>
+</body>
+</html>

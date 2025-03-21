@@ -1,0 +1,150 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #949393;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container-registro {
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en una columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    gap: 20px;
+}
+
+
+/* Título del formulario */
+h1 {
+    text-align: center;
+    font-size: 2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+}
+/* Contenedor del formulario */
+form {
+    /* background-color: #3d43a1d2; */
+    padding: 20px;
+    /* border-radius: 8px; */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    width: 100%;
+    max-width: 400px;
+}
+
+.container-solo-form {
+    display: flex;
+    flex-direction: column; 
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    gap: 20px;
+}
+
+
+/* Estilos para las etiquetas */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Estilos para los inputs */
+.igreso-nombre{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+select {
+    width: 80%;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+
+.container-dirige {
+    /* background-color: #9c9c6f; */
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+
+/* Estilos para el select múltiple */
+select[multiple] {
+    height: 120px;
+}
+
+/* Estilos para el checkbox */
+input[type="checkbox"] {
+    margin-right: 30px;
+}
+
+.button-reg {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el botón */
+button {
+    width: 30%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Estilos para el enlace de volver */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* Estilos responsive */
+@media (max-width: 600px) {
+    form {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    input[type="text"],
+    select {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}

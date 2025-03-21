@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #949393;
 }
 
 h1 {
@@ -54,7 +54,7 @@ h1 {
 .song {
     padding: 8px;
     margin: 10px 0;
-    background-color: #007bff;
+    background-color: #5a85b3;
     color: #fff;
     cursor: pointer;
     border-radius: 5px;
@@ -65,7 +65,7 @@ h1 {
 
 .song:hover {
     transform: scale(1.02);
-    background-color: #0056b3;
+    background-color: #246ab4;
     box-shadow: 0 0 25px #f1d074;
 }
 
@@ -79,7 +79,7 @@ a {
     display: block;
     text-align: center;
     margin-top: 15px;
-    color: #007bff;
+    color: #5a85b3;
     text-decoration: none;
 }
 
